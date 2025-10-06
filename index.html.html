@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>الوسائط المتعددة — تعريف وأنواع وشرح</title>
+  <style>
+    :root{
+      --bg-1: #f7f3ff;
+      --bg-2: #fff7f2;
+      --primary-1: #6b21a8; /* بنفسجي */
+      --primary-2: #ff6b35; /* برتقالي */
+      --muted: #2b2b2b;
+      --card: rgba(255,255,255,0.95);
+      --glass-border: rgba(0,0,0,0.06);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family: "Segoe UI", Tahoma, Arial, "Noto Naskh Arabic", sans-serif;
+      color:var(--muted);
+      direction:rtl;
+      background: linear-gradient(180deg,var(--bg-1) 0%, var(--bg-2) 100%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Centered header with big circular logo */
+    header{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:26px 18px;
+      position:relative;
+    }
+    .logo-circle{
+      width:110px;height:110px;border-radius:999px;
+      background:linear-gradient(135deg,var(--primary-1),var(--primary-2));
+      display:flex;align-items:center;justify-content:center;
+      color:#fff;font-weight:900;font-size:28px;letter-spacing:2px;
+      box-shadow:0 18px 40px rgba(107,33,168,0.18);
+      border:6px solid rgba(255,255,255,0.14);
+    }
+    .logo-sub{font-size:13px;color:rgba(0,0,0,0.5)}
+
+    main{
+      max-width:1100px;margin:12px auto 50px;padding:0 16px;
+    }
+
+    /* hero */
+    .hero{
+      background:var(--card);
+      border-radius:14px;
+      padding:20px;
+      box-shadow:0 18px 40px rgba(16,24,40,0.06);
+      border:1px solid var(--glass-border);
+      display:flex;
+      gap:18px;
+      align-items:flex-start;
+    }
+    .hero-left{flex:1;padding:6px 4px}
+    .hero-left h1{margin:0 0 6px;font-size:22px;color:var(--primary-1)}
+    .hero-left p{margin:0 0 10px;line-height:1.7;color:rgba(0,0,0,0.75)}
+
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .btn{
+      appearance:none;border:0;padding:10px 14px;border-radius:10px;font-weight:800;cursor:pointer;
+      color:#fff;background:linear-gradient(90deg,var(--primary-1),var(--primary-2));
+      box-shadow:0 10px 26px rgba(107,33,168,0.12);
+    }
+    .btn.ghost{background:transparent;color:var(--primary-1);border:1px solid rgba(107,33,168,0.10);box-shadow:none}
+
+    /* content area: left = explanation, right = aside (or vice versa in RTL) */
+    .content-wrap{display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:16px}
+    .panel{
+      background:var(--card);padding:18px;border-radius:12px;border:1px solid var(--glass-border);
+      box-shadow:0 10px 30px rgba(5,20,40,0.04);
+    }
+
+    /* explanation area with vertical scroller aside inside it */
+    .explain{
+      display:flex;gap:16px;align-items:flex-start;
+    }
+    .explain-text{flex:1}
+    .explain-text h2{margin:0 0 8px;color:var(--primary-1)}
+    .explain-text p{margin:0 0 12px;line-height:1.7;color:rgba(0,0,0,0.78)}
+    .types-list{margin-top:8px;padding-left:18px}
+    .types-list li{margin-bottom:10px;font-weight:600;color:rgba(0,0,0,0.72)}
+    .types-list .desc{font-weight:400;color:rgba(0,0,0,0.62);font-size:14px;margin-top:6px;margin-bottom:8px}
+
+    /* vertical image scroller (5 images top->bottom) */
+    .v-scroller{
+      width:150px;
+      height:360px;
+      overflow-y:auto;
+      border-radius:12px;
+      border:1px solid rgba(0,0,0,0.04);
+      background:linear-gradient(180deg,#fff,#fbfdff);
+      box-shadow:0 8px 20px rgba(10,30,60,0.04);
+      padding:8px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:center;
+    }
+    .v-scroller img{
+      width:100%;
+      height:120px;
+      object-fit:cover;
+      border-radius:8px;
+      cursor:pointer;
+      transition:transform .18s ease,box-shadow .18s ease;
+      border:2px solid transparent;
+    }
+    .v-scroller img:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(0,0,0,0.12);border-color:rgba(107,33,168,0.12)}
+
+    /* aside right column (for extra controls & watch video) */
+    .side{display:flex;flex-direction:column;gap:12px}
+    .watch-card{text-align:center;padding:14px;border-radius:10px;background:linear-gradient(180deg,#fff,#f8f6ff);border:1px solid rgba(107,33,168,0.06)}
+    .watch-card .watch-btn{display:inline-block;margin-top:10px;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--primary-2),var(--primary-1));color:#fff;font-weight:800;cursor:pointer;border:0}
+
+    /* small inline intro video */
+    .intro-video{
+      margin-top:12px;border-radius:10px;overflow:hidden;border:1px solid rgba(0,0,0,0.04);
+      background:#000;
+    }
+    .intro-video video{width:100%;height:auto;display:block;max-height:200px;object-fit:cover}
+
+    /* lightbox */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.75);display:none;align-items:center;justify-content:center;z-index:80;padding:18px;}
+    .lightbox.active{display:flex}
+    .lightbox .box{width:100%;max-width:980px;background:#000;border-radius:12px;overflow:hidden;position:relative}
+    .lightbox video{width:100%;height:auto;display:block}
+    .lightbox .close{position:absolute;top:12px;left:12px;background:rgba(255,255,255,0.9);border-radius:8px;padding:8px 10px;cursor:pointer;font-weight:800}
+
+    /* responsive */
+    @media(max-width:980px){
+      .content-wrap{grid-template-columns:1fr}
+      .v-scroller{width:100%;height:220px;flex-direction:row;overflow-x:auto;overflow-y:hidden;padding:6px}
+      .v-scroller img{height:140px;width:auto;min-width:160px}
+      .hero{flex-direction:column;align-items:flex-start}
+      header{padding:18px}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-circle" aria-hidden="true">MM</div>
+    <div class="logo-sub">مركز الوسائط — Multimedia Hub</div>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div class="hero-left">
+        <h1>لماذا الوسائط المتعددة مهمة الآن؟</h1>
+        <p>الوسائط المتعددة تحول المحتوى من نص جامد إلى تجربة تفاعلية: نص، صور، صوت، فيديو، وأنيميشن تعمل معًا لتجعل المعلومة أسرع فهماً وأكثر تأثيرًا.</p>
+
+        <div class="hero-actions">
+          <button class="btn" id="btnContent">اقرأ الأنواع</button>
+          <button class="btn ghost" id="btnWatchSmall">▶ مشاهدة الفيديو الرئيسي</button>
+        </div>
+
+        <!-- ======= NEW: intro video placed in the hero (second video) ======= -->
+        <div class="intro-video" aria-hidden="false" style="margin-top:12px">
+          <video id="introVideo" controls preload="metadata" muted playsinline poster="" aria-label="مقدمة قصيرة">
+            <source src="intro.webm" type="video/webm">
+            <source src="cc.mp4" type="video/mp4">
+            متصفحك لا يدعم تشغيل الفيديو.
+          </video>
+          <div style="padding:8px 10px;color:rgba(0,0,0,0.65);font-size:13px">مقدمة قصيرة — شاهد لمحة سريعة عن التجربة</div>
+        </div>
+      </div>
+
+      <aside style="width:260px">
+        <div style="padding:12px;border-radius:12px;background:linear-gradient(180deg,#fff,#fff6f6);border:1px solid rgba(0,0,0,0.03);box-shadow:0 10px 24px rgba(0,0,0,0.04);text-align:center">
+          <h3 style="margin:0;color:var(--primary-1)">اختبر التجربة</h3>
+          <p style="margin:6px 0 0;color:rgba(0,0,0,0.6)">تشغيل المقدّمة أعلاه يمنحك لمحة فورية. أو افتح الفيديو الكامل.</p>
+          <button class="btn" style="margin-top:12px" id="btnPlayHero">تشغيل المقدمة</button>
+        </div>
+      </aside>
+    </div>
+
+    <div class="content-wrap" aria-live="polite">
+      <!-- explanation panel -->
+      <div class="panel">
+        <div class="explain">
+          <div class="explain-text">
+            <h2>أنواع الوسائط المتعددة (المهمة للمحتوى الرقمي)</h2>
+            <p>هناك عدّة أنواع تُستخدم بحسب الهدف والجمهور؛ سنشرح الخمسة الأساسية والفرق بينها:</p>
+
+            <ul class="types-list">
+              <li>1) النص (Text)</li>
+              <div class="desc">النص هو العنصر الأساسي: عناوين، فقرات، تسميات، ونصوص مُساعدة تظهر على الشاشة. يجب أن يكون واضحًا وقابلًا للقراءة ويعمل كمُلخص أو دليل لباقي الوسائط.</div>
+
+              <li>2) الصور الثابتة (Images)</li>
+              <div class="desc">الصور والفوتوغرافيا والرسوم البيانية تُسرّع فهم الفكرة البصرية وتقلل من كمية النص المطلوب لشرح نقطة معينة.</div>
+
+              <li>3) الصوت (Audio)</li>
+              <div class="desc">التعليق الصوتي، الموسيقى والمؤثرات تضيف إحساسًا ووتيرة للمحتوى؛ مفيدة جدًا في قصص السرد والتدريب الصوتي.</div>
+
+              <li>4) الفيديو (Video)</li>
+              <div class="desc">الفيديو يجمع بين الحركة، الصوت، والصورة ليُقدّم شروحات عملية أو سردًا سريعًا؛ مثالي لشرح إجراءات أو عرض حالات واقعية.</div>
+
+              <li>5) التفاعل/الأنيميشن (Interactive & Animation)</li>
+              <div class="desc">عناصر تفاعلية مثل الأزرار، الاختبارات، والرسوم المتحركة تجعل المستخدم جزءًا من التجربة بدلًا من متلقٍ سلبي.</div>
+            </ul>
+
+            <p style="margin-top:8px">عند دمج هذه الأنواع بشكل متماسك يحصل المحتوى على عمق أكبر وفعالية أعلى: استخدمي النص كمرشد، والصورة والفيديو لتوضيح، والصوت لإثارة الانتباه، والتفاعل لقياس الفهم.</p>
+
+            <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+              <button class="btn" id="jumpTypes">اذهب للأنواع (تفصيل)</button>
+              <button class="btn ghost" id="openVideoBtn">مشاهدة الفيديو الكامل</button>
+            </div>
+          </div>
+
+          <!-- vertical scroller of 5 images (top -> bottom) -->
+          <div class="v-scroller" aria-label="معرض الصور الرأسي">
+            <!-- five images: using 1.avif,2.avif,3.avif,1.avif,2.avif -->
+            <img src="a.webp" alt="صورة 1" data-src="1.avif">
+            <img src="b.webp" alt="صورة 2" data-src="2.avif">
+            <img src="c.webp" alt="صورة 3" data-src="3.avif">
+            <img src="d.webp" alt="صورة 4" data-src="1.avif">
+            <img src="e.webp" alt="صورة 5" data-src="2.avif">
+          </div>
+        </div>
+      </div>
+
+      <!-- side column -->
+      <aside class="side">
+        <div class="panel watch-card">
+          <h3 style="margin:0;color:var(--primary-1)">الفيديو الكامل</h3>
+          <p class="muted" style="margin-top:8px;color:rgba(0,0,0,0.6)">اضغط زر المشاهدة لفتح الفيديو الكامل في نافذة عرض.</p>
+          <button class="watch-btn" id="watchBtn">▶ مشاهدة الفيديو الكامل</button>
+        </div>
+
+        <div class="panel">
+          <h3 style="margin:0;color:var(--primary-1)">ملاحظات تقنية</h3>
+          <ul style="margin-top:8px;padding-left:16px;color:rgba(0,0,0,0.68)">
+            <li> النصوص هي أحد مكونات الوسائط المتعددة </li>
+            <li> تعتبر الصور أكثر دقة و أسرع في إيصال لافكرة من النصوص</li>
+            <li>الفيديو يرسخ المفهوم بشكل أسرع من الصور و  النصوص بمفردها</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- footer -->
+  <footer style="text-align:center;padding:18px;color:rgba(0,0,0,0.45);font-size:13px">
+    © حقوق المحتوى — مركز الوسائط المتعددة
+  </footer>
+
+  <!-- lightbox for images & video -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-hidden="true">
+    <div class="box" role="document">
+      <button class="close" id="lbClose">إغلاق ✕</button>
+      <!-- video or image injected here -->
+      <div id="lbInner" style="background:#000"></div>
+    </div>
+  </div>
+
+  <script>
+    // navigation-like buttons
+    document.getElementById('btnContent').addEventListener('click', ()=> {
+      window.scrollTo({top: document.querySelector('.content-wrap').offsetTop - 20, behavior:'smooth'});
+    });
+
+    // Play/pause the intro inline video
+    const introVideo = document.getElementById('introVideo');
+    document.getElementById('btnPlayHero').addEventListener('click', ()=> {
+      // scroll to intro and toggle play
+      introVideo.scrollIntoView({behavior:'smooth', block:'center'});
+      // try to play; if playing pause (toggle)
+      if(introVideo.paused){
+        introVideo.muted = false; // unmute on explicit play if desired
+        introVideo.play().catch(()=>{/* autoplay may be blocked; user can press play */});
+      } else {
+        introVideo.pause();
+      }
+    });
+
+    // small watch opens full video in lightbox
+    document.getElementById('btnWatchSmall').addEventListener('click', ()=> openVideoLightbox());
+    document.getElementById('openVideoBtn').addEventListener('click', ()=> openVideoLightbox());
+    document.getElementById('watchBtn').addEventListener('click', ()=> openVideoLightbox());
+
+    // vertical images: click to open lightbox image
+    document.querySelectorAll('.v-scroller img').forEach(img=>{
+      img.addEventListener('click', ()=>{
+        openImageLightbox(img.getAttribute('data-src') || img.src);
+      });
+    });
+
+    // lightbox functions
+    const lb = document.getElementById('lightbox');
+    const lbInner = document.getElementById('lbInner');
+    const lbClose = document.getElementById('lbClose');
+
+    function openImageLightbox(src){
+      lbInner.innerHTML = '<img src="'+src+'" alt="صورة" style="width:100%;height:auto;display:block" />';
+      lb.classList.add('active'); lb.style.display='flex'; lb.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+    }
+    function openVideoLightbox(){
+      // main video: try clip.webm then ee.mp4
+      lbInner.innerHTML = `
+        <video controls autoplay playsinline style="width:100%;height:auto;display:block">
+          <source src="clip.webm" type="video/webm">
+          <source src="ee.mp4" type="video/mp4">
+          متصفحك لا يدعم تشغيل الفيديو.
+        </video>
+      `;
+      lb.classList.add('active'); lb.style.display='flex'; lb.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+    }
+
+    function closeLightbox(){
+      lb.classList.remove('active'); lb.style.display='none'; lbInner.innerHTML=''; lb.setAttribute('aria-hidden','true');
+      document.body.style.overflow='';
+    }
+    lbClose.addEventListener('click', closeLightbox);
+    lb.addEventListener('click', (e)=> { if(e.target === lb) closeLightbox(); });
+    document.addEventListener('keydown', (e)=> { if(e.key === 'Escape') closeLightbox(); });
+
+    // fallback for avif images: if an image fails (old browser) try same-name jpg
+    document.querySelectorAll('img').forEach(img=>{
+      img.addEventListener('error', ()=>{
+        const src = img.getAttribute('src') || img.currentSrc;
+        if(src && src.match(/\.avif$/i)){
+          const alt = src.replace(/\.avif$/i, '.jpg');
+          if(alt !== src) img.src = alt;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
